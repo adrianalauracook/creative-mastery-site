@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Mastery — A Masterclass Series</title>
+<meta name="description" content="Creative Mastery is an invitation-only five-course dinner and wine pairing series, staged in private settings for a table of a few.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #EAE6DD;
+    --stone-deep: #DCD6C9;
+    --ink: #1E1C19;
+    --ink-soft: #4A473F;
+    --brass: #8C7A57;
+    --line: rgba(30,28,25,0.14);
+    --white: #F7F5F0;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--stone);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  a{ color:inherit; }
+  img{ display:block; max-width:100%; }
+
+  .eyebrow{
+    font-family:'Jost', sans-serif;
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:300;
+    letter-spacing:0.01em;
+    line-height:1.05;
+  }
+
+  :focus-visible{ outline:1px solid var(--brass); outline-offset:4px; }
+
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:28px 6vw;
+    transition:background 0.4s ease, padding 0.4s ease;
+  }
+  nav.scrolled{
+    background:rgba(234,230,221,0.92);
+    backdrop-filter:blur(6px);
+    padding:16px 6vw;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-mark{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+  }
+  .nav-links{ display:flex; gap:40px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; }
+  .nav-links a{ text-decoration:none; opacity:0.75; transition:opacity 0.3s; }
+  .nav-links a:hover{ opacity:1; }
+  @media (max-width:720px){ .nav-links{ display:none; } }
+
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:120px 6vw 80px;
+  }
+  .hero-mark{ width:min(38vw, 210px); opacity:0.9; margin-bottom:28px; animation:markIn 1.6s ease both; }
+  @keyframes markIn{ from{ opacity:0; transform:translateY(14px) scale(0.98);} to{ opacity:0.9; transform:translateY(0) scale(1);} }
+  .hero-eyebrow{ animation:fadeIn 1.4s ease 0.3s both; }
+  .hero h1{ font-size:clamp(2.6rem, 7vw, 5.6rem); margin-top:18px; animation:fadeIn 1.4s ease 0.5s both; }
+  .hero-script{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(1.1rem, 2vw, 1.5rem);
+    color:var(--ink-soft);
+    margin-top:14px;
+    animation:fadeIn 1.4s ease 0.7s both;
+  }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+
+  .hero-line{ width:1px; height:64px; background:var(--line); margin-top:56px; animation:growLine 1.6s ease 1s both; }
+  @keyframes growLine{ from{ height:0; opacity:0;} to{ height:64px; opacity:1;} }
+
+  section{ padding:min(14vw,140px) 6vw; position:relative; }
+  .section-head{ display:flex; align-items:baseline; gap:24px; margin-bottom:min(6vw,64px); }
+  .section-head .rule{ flex:1; height:1px; background:var(--line); }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  .essay{ background:var(--white); }
+  .essay h2{ font-size:clamp(1.9rem, 4vw, 3.1rem); max-width:16ch; margin-bottom:min(8vw,72px); }
+  .essay-grid{ display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+  .essay-col p{ font-size:16px; line-height:1.85; color:var(--ink-soft); margin-bottom:1.6em; font-weight:300; }
+  .essay-col p:first-child::first-letter{
+    font-family:'Fraunces', serif;
+    font-size:3.4em;
+    float:left;
+    line-height:0.85;
+    padding-right:10px;
+    padding-top:6px;
+    color:var(--ink);
+    font-weight:400;
+  }
+  @media (max-width:860px){ .essay-grid{ grid-template-columns:1fr; gap:8px; } }
+
+  .regions{
+    margin-top:min(6vw,56px);
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:clamp(0.95rem, 1.6vw, 1.15rem);
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    line-height:2;
+    text-align:center;
+  }
+
+  .triptych{ background:var(--stone); padding-top:0; }
+  .triptych-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; background:var(--ink); }
+  .triptych-grid figure{ overflow:hidden; position:relative; aspect-ratio:3/4; }
+  .triptych-grid img{
+    width:100%; height:100%;
+    object-fit:cover;
+    filter:grayscale(0.08);
+    transform:scale(1.02);
+    transition:transform 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .triptych-grid figure:hover img{ transform:scale(1.08); }
+  @media (max-width:860px){
+    .triptych-grid{ grid-template-columns:1fr; }
+    .triptych-grid figure{ aspect-ratio:4/3; }
+  }
+
+  .invitation{ background:var(--ink); color:var(--white); }
+  .invitation .eyebrow{ color:rgba(247,245,240,0.55); }
+  .invitation-grid{ display:grid; grid-template-columns:1fr 1fr; gap:min(8vw,90px); align-items:center; }
+  .invitation-photo{ aspect-ratio:4/5; overflow:hidden; }
+  .invitation-photo img{ width:100%; height:100%; object-fit:cover; filter:grayscale(0.1) brightness(0.96); }
+  .invitation h2{ font-size:clamp(2rem, 4.4vw, 3.4rem); color:var(--white); margin-bottom:24px; }
+  .invitation p{ font-size:16px; line-height:1.85; color:rgba(247,245,240,0.72); font-weight:300; margin-bottom:1.6em; max-width:46ch; }
+  .details{ display:flex; gap:min(8vw,56px); margin:40px 0 44px; flex-wrap:wrap; }
+  .detail dt{ font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:rgba(247,245,240,0.5); margin-bottom:8px; }
+  .detail dd{ font-family:'Fraunces', serif; font-size:1.3rem; font-weight:300; }
+  .cta{
+    display:inline-block;
+    border:1px solid rgba(247,245,240,0.4);
+    padding:16px 34px;
+    font-size:11px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    text-decoration:none;
+    transition:background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+  .cta:hover{ background:var(--white); color:var(--ink); border-color:var(--white); }
+  @media (max-width:860px){
+    .invitation-grid{ grid-template-columns:1fr; }
+    .invitation-photo{ order:-1; aspect-ratio:16/10; }
+  }
+
+  footer{ background:var(--stone-deep); text-align:center; padding:min(12vw,100px) 6vw min(6vw,50px); }
+
+  /* ---- Recent Menus ---- */
+  .menus{ background:var(--white); text-align:center; }
+  .menu-grid{
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:min(7vw,72px); max-width:1180px; margin:0 auto;
+    align-items:start;
+  }
+  @media (max-width:900px){ .menu-grid{ grid-template-columns:1fr; gap:80px; } }
+  .menu-card{ max-width:520px; margin:0 auto; }
+  .course-wine{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:300;
+    font-size:0.92rem; color:var(--ink-soft); opacity:0.75; margin-top:6px;
+  }
+  .menu-title{
+    font-family:'Fraunces', serif; font-weight:300;
+    font-size:clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom:6px;
+  }
+  .menu-date{
+    font-size:11px; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:min(5vw,48px);
+  }
+  .course{ margin-bottom:34px; }
+  .course-name{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:300;
+    font-size:1.25rem; color:var(--brass); margin-bottom:10px;
+  }
+  .course-items{ font-size:15px; line-height:1.9; color:var(--ink-soft); }
+
+  /* ---- Featured Wines ---- */
+  .wines{ background:var(--ink); color:var(--white); }
+  .wines .section-head .eyebrow{ color:rgba(247,245,240,0.55); }
+  .wines .section-head .rule{ background:rgba(247,245,240,0.18); }
+  .wine-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:2px;
+    background:rgba(247,245,240,0.14);
+  }
+  .wine{ background:var(--ink); padding:min(5vw,52px); }
+  .wine-course{
+    font-size:10px; letter-spacing:0.28em; text-transform:uppercase;
+    color:rgba(247,245,240,0.5); margin-bottom:14px;
+  }
+  .wine h3{
+    font-family:'Fraunces', serif; font-weight:300;
+    font-size:clamp(1.15rem, 2vw, 1.5rem); line-height:1.3;
+    color:var(--white); margin-bottom:6px;
+  }
+  .wine-region{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:300;
+    font-size:1rem; color:#C4A265; margin-bottom:16px;
+  }
+  .wine p{ font-size:14.5px; line-height:1.8; color:rgba(247,245,240,0.68); }
+  @media (max-width:860px){ .wine-grid{ grid-template-columns:1fr; } }
+
+  /* ---- Bios ---- */
+  .bios{ background:var(--stone); }
+  .bio-grid{ display:grid; grid-template-columns:1fr 1fr; gap:min(8vw,80px); }
+  .bio-role{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:300;
+    font-size:1.15rem; color:var(--brass); margin-bottom:8px;
+  }
+  .bio h3{
+    font-family:'Fraunces', serif; font-weight:300;
+    font-size:clamp(1.5rem, 2.8vw, 2rem); margin-bottom:20px;
+  }
+  .bio p{ font-size:15.5px; line-height:1.85; color:var(--ink-soft); margin-bottom:1.4em; }
+  @media (max-width:860px){ .bio-grid{ grid-template-columns:1fr; gap:56px; } }
+
+  footer .lion{ width:min(30vw, 150px); margin:0 auto 20px; }
+  footer h3{ font-size:clamp(1.5rem, 3vw, 2.2rem); margin-bottom:14px; }
+  footer .sub{ color:var(--ink-soft); font-size:15px; margin-bottom:36px; }
+  .contact-row{ display:flex; justify-content:center; gap:44px; flex-wrap:wrap; margin-bottom:64px; }
+  .contact-row a{
+    text-decoration:none;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+    transition:border-color 0.3s ease, opacity 0.3s ease;
+  }
+  .contact-row a:hover{ border-color:var(--ink); }
+  .foot-fine{ font-size:11px; letter-spacing:0.08em; color:var(--ink-soft); opacity:0.7; }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-mark" style="display:flex; align-items:center; gap:14px;"><img src="assets/logo-mark.png" alt="CM monogram" style="height:34px; width:auto;">Creative Mastery</div>
+  <div class="nav-links">
+    <a href="#story">The Series</a>
+    <a href="art-of-the-table.html">The Art of the Table</a>
+    <a href="#lavender-table">Recent Event</a>
+    <a href="#wines">Wines</a>
+    <a href="#bios">Bios</a>
+    <a href="#reach">Inquire</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-mark" src="assets/logo-tagline.png" alt="Creative Mastery — The Art of the Table">
+  <div class="hero-eyebrow eyebrow">Chicago North Shore · Est. 2024</div>
+  <h1>An evening<br>set with intention.</h1>
+  <div class="hero-line"></div>
+</section>
+
+<section class="essay" id="story">
+  <div class="section-head reveal">
+    <span class="eyebrow">The Series</span>
+    <span class="rule"></span>
+  </div>
+  <h2 class="reveal">A table set for discerning.</h2>
+
+  <div class="essay-grid">
+    <div class="essay-col reveal">
+      <p>For nearly twenty years, a rarefied circle of collectors, epicures, and connoisseurs has quietly known where to find the finest in-home culinary experiences — intimate, exacting, and utterly unlike the commoditized tasting-menu landscape of the moment. In January 2024, that legacy found its next expression: Creative Mastery, a five-course dinner and wine pairing series that has, in short order, become one of the most coveted invitations among those who take their Burgundy seriously.</p>
+      <p>This is not a class. It is not a wine night. It is a celebration of the oldest tradition there is — the gathering of a few kindred people around a table set with intention. Each evening, a menu of five courses is composed alongside a hand-selected pairing of wines, curated by our Burgundy-based wine specialist, drawn not from a single cellar but from across the world's most compelling regions. The result is a conversation between plate and pour, built for a room of no more than a handful of guests.</p>
+    </div>
+    <div class="essay-col reveal">
+      <p>For a guest who has already toured the obvious cellars of the world, Creative Mastery offers something rarer still — genuine discovery, delivered without pretense, in a room built for real conversation. Each dinner is staged in a distinctive private setting, the table dressed as carefully as the menu is composed — a study in atmosphere as much as in gastronomy.</p>
+      <p>The result is less an event than an experience: unhurried, richly detailed, and designed for those who understand that the best evenings are the ones that can't be replicated at scale.</p>
+    </div>
+  </div>
+
+  <div class="regions reveal">
+    Recent evenings have drawn from<br>Loire Valley · Bordeaux · Chianti · Puglia · Dolomites · Armenia · Croatia · Germany · California
+  </div>
+</section>
+
+<section class="triptych">
+  <div class="triptych-grid">
+    <figure class="reveal"><img src="assets/dish2.jpg" alt="Course service at a recent Creative Mastery dinner"></figure>
+    <figure class="reveal"><img src="assets/dish3.jpg" alt="A plated course from a Creative Mastery dinner"></figure>
+    <figure class="reveal"><img src="assets/dish1.jpg" alt="A dessert course from a Creative Mastery dinner"></figure>
+  </div>
+</section>
+
+<section class="invitation" id="lavender-table">
+  <div class="invitation-grid">
+    <div class="reveal">
+      <div class="eyebrow">Recent Event</div>
+      <h2>The Lavender Table</h2>
+      <p>An evening in celebration of gracious hospitality itself — the five-course seasonal menu and bespoke wine pairings unfolding beneath the soft weight of lavender, in a room dressed for lingering conversation rather than hurried service.</p>
+
+      <dl class="details">
+        <div class="detail">
+          <dt>Date</dt>
+          <dd>July 15</dd>
+        </div>
+        <div class="detail">
+          <dt>Time</dt>
+          <dd>Wednesday, six o'clock</dd>
+        </div>
+        <div class="detail">
+          <dt>Reservation</dt>
+          <dd>$149</dd>
+        </div>
+      </dl>
+
+      <a class="cta" href="#reach">Inquire About Our Next Evening</a>
+    </div>
+    <div class="invitation-photo reveal">
+      <img src="assets/dish4.jpg" alt="Lavender-hued pasta course from The Lavender Table">
+    </div>
+  </div>
+</section>
+
+<section class="menus" id="menus">
+  <div class="section-head reveal">
+    <span class="eyebrow">Recent Menus</span>
+    <span class="rule"></span>
+  </div>
+  <div class="menu-grid">
+  <div class="menu-card reveal">
+    <div class="menu-title">The Lavender Table</div>
+    <div class="menu-date">7.15.26 · Beach House, Wilmette</div>
+
+    <div class="course">
+      <div class="course-name">Amuse-Bouche</div>
+      <div class="course-items">Roasted Pear + Walnut Tarte · Microgreens<br>Brie &amp; Roquefort · Honey Drizzle<br>Watermelon, Feta &amp; Mint Tourelle</div>
+    </div>
+    <div class="course">
+      <div class="course-name">First Course</div>
+      <div class="course-items">Blueberry Ricotta Tagliatelle<br>Toasted Pancetta · Basil</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Second Course</div>
+      <div class="course-items">Pan Roasted Citrus Shrimp<br>Honeycrisp + Butternut Squash Bisque</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Third Course</div>
+      <div class="course-items">Warm Nectarine Ciliegine Caprese + Tossed Arugula<br>Balsamic Drizzle · Crushed Pistachio</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Fourth Course</div>
+      <div class="course-items">Orange Ginger Braised Beef<br>Roasted Carrots · Broccolini · Citrus Herb Quinoa</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Dessert</div>
+      <div class="course-items">Chocolate Financier<br>Lavender Banana Ice Cream · Pistachio Dusting</div>
+    </div>
+  </div>
+
+  <div class="menu-card reveal">
+    <div class="menu-title">A Holiday Wine Dinner</div>
+    <div class="menu-date">12.17.25</div>
+
+    <div class="course">
+      <div class="course-name">Amuse-Bouche</div>
+      <div class="course-items">Roasted Christmas Pears · Feta · Honey Drizzle · Pomegranate Seeds<br>Phyllo Pochettes · Honeycrisp Apples · Brie · Stoneground Mustard</div>
+    </div>
+    <div class="course">
+      <div class="course-name">First Course</div>
+      <div class="course-items">Pumpkin Butternut Squash Bisque · Citrus Roasted Shrimp · Chèvre</div>
+      <div class="course-wine">2018 Langtry "Genevieve Vineyard" Chardonnay, Guenoc Valley</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Second Course</div>
+      <div class="course-items">Whipped Ricotta Roasted Carrots · Tossed Arugula</div>
+      <div class="course-wine">Baracchi O'Lillo Super Tuscan</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Third Course</div>
+      <div class="course-items">Fresh Spinach Tagliatelle · Lemon Pesto · Spinach Velvet Sauce · Ciliegine</div>
+      <div class="course-wine">2017 Alexis Soyer First Barrel Cabernet</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Fourth Course</div>
+      <div class="course-items">Chicken Wellington · Smashed Gold Potatoes · Charred Broccolini · Cranberry Chutney</div>
+      <div class="course-wine">2022 Vigneti Reale "Gloria" Primitivo di Manduria Reserve</div>
+    </div>
+    <div class="course">
+      <div class="course-name">Fifth Course</div>
+      <div class="course-items">Chocolate Grand Marnier Soufflé · Crème Anglaise</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="wines" id="wines">
+  <div class="section-head reveal">
+    <span class="eyebrow">Featured Wine Selections</span>
+    <span class="rule"></span>
+  </div>
+  <div class="wine-grid">
+    <div class="wine reveal" style="grid-column:1 / -1;">
+      <h3>2022 Herxheim am Berg Sauvignon Blanc</h3>
+      <div class="wine-region">Pfalz, Germany</div>
+      <p>From a family winery making wine since 1937 under winemaker Thomas Vogel, in a region the world knows for Riesling — where the Herxheim vineyards have quietly pursued a passion for great white varieties on ideal calcareous soils. A blend of Sauvignon Blanc with a hint of Pinot Blanc: peach, green apple, grapefruit, and white blossoms, with elegant acidity and lime nuances — all at a graceful 11% alcohol that lets the evening linger.</p>
+    </div>
+    <div class="wine reveal">
+      <h3>2018 Langtry Special Select "Genevieve Vineyard" Chardonnay</h3>
+      <div class="wine-region">Guenoc Valley, California</div>
+      <p>From a historic ten-acre vineyard block planted in shallow gravelly clay-loam, crafted in a distinctly Burgundian style — a refreshing departure from richly oaked California expressions. Almond blossom, toasted hazelnut, and Honeycrisp apple unfold with a silky texture and a finish reminiscent of freshly baked apple tart.</p>
+    </div>
+    <div class="wine reveal">
+      <h3>Special Select Tollo 100% Sangiovese</h3>
+      <div class="wine-region">Abruzzo, Italy</div>
+      <p>From a cooperative founded in 1960 by twenty local farmers, rooted in an ancient wine-producing territory cooled by sea breezes off the Maiella. Intense ruby red with wild cherry, elegant spice, and a velvety, structured finish — Sangiovese with muscle, from beyond its familiar Tuscan home.</p>
+    </div>
+    <div class="wine reveal">
+      <h3>2017 First Barrel "Alexis Soyer" Pinot Noir</h3>
+      <div class="wine-region">Limited Production — 287 Bottles</div>
+      <p>A truly rare Pinot Noir from the coveted First Barrel, traditionally reserved for the winemakers and their families. Old World in style — elegance and restraint over ripeness — with black cherry, delicate smoke, and warm baking spice over silky tannins. Named for the celebrated 19th-century French chef Alexis Soyer.</p>
+    </div>
+    <div class="wine reveal">
+      <h3>2023 Vigneti Reale "Gloria" Primitivo di Manduria Riserva</h3>
+      <div class="wine-region">Single Vineyard Special Cuvée, Puglia</div>
+      <p>Only 1,000 bottles produced, unavailable for retail in the United States. Aged twelve months in French oak: ripe plum, black currant, cocoa, and roasted coffee, balanced despite its robust frame by velvety tannins and vibrant acidity — a celebration of patience and craftsmanship.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bios" id="bios">
+  <div class="section-head reveal">
+    <span class="eyebrow">The People at the Table</span>
+    <span class="rule"></span>
+  </div>
+  <div class="bio-grid">
+    <div class="bio reveal">
+      <div class="bio-role">Founder and Host</div>
+      <h3>Adriana Laura Cook</h3>
+      <p>For nearly two decades, Adriana Laura Cook has welcomed guests through culinary arts classes, thoughtfully curated wine dinners, and immersive themed experiences that celebrate the joy of gathering around beautiful tables. In January 2024, she launched Creative Mastery — an intimate series dedicated to the worlds of culinary arts and viticulture, each evening designed around a unique region, season, or theme.</p>
+      <p>Originally from Timișoara, Romania, Adriana immigrated to Chicago with her family in 1987 and earned her degree in business administration from DePaul University. Alongside a real estate career of more than twenty-two years, she continues her passion for creating experiences that bring people together. She lives in Winnetka with her husband, Vince, their daughter, Eliza, and their two beloved Dachshunds, Maverick and Goose.</p>
+    </div>
+    <div class="bio reveal">
+      <div class="bio-role">Our Wine Curator</div>
+      <h3>James Freveletti</h3>
+      <p>Our resident wine specialist has devoted a lifetime to the world of wine — a journey that began in Chicago and has since taken him throughout Italy, France, Spain, and Portugal. His passion is simple: to discover the undiscovered, seeking out exceptional wines crafted by small family estates whose limited production rarely reaches the United States.</p>
+      <p>By working directly with these winemakers, James brings their remarkable wines from their cellars to our table — bottles seldom found beyond their local villages. Each pour represents more than a beautiful wine: it is an invitation into a family's history, a region's traditions, and generations of dedication to the art of winemaking.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="reach">
+  <img class="lion" src="assets/logo-tagline.png" alt="Creative Mastery — The Art of the Table" style="margin-bottom:48px;">
+  <h3>The table is small, by design.</h3>
+  <p class="sub">Reach out to reserve, or to inquire about our next evenings.</p>
+  <div class="contact-row">
+    <a href="tel:+13124972044">312.497.2044</a>
+    <a href="https://instagram.com/creativemasterymasterclass" target="_blank" rel="noopener">@creativemasterymasterclass</a>
+  </div>
+  <div class="foot-fine">Creative Mastery — the art of the table · Chicago North Shore · est. 2024</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold:0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
