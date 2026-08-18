@@ -99,29 +99,29 @@
 
   /* cinematic cross-fade gallery */
   .cinema{ position:relative; width:100%; height:88vh; min-height:520px; overflow:hidden; background:var(--plum-deep); }
-  .cinema .frame{ position:absolute; inset:0; opacity:0; background-size:cover; background-position:center; animation:cinemaFade 80s infinite; will-change:opacity,transform; }
+  .cinema .frame{ position:absolute; inset:0; opacity:0; background-size:cover; background-position:center; animation:cinemaFade 128s infinite; will-change:opacity,transform; }
   .cinema .frame:nth-child(1){ animation-delay:0s; }
-  .cinema .frame:nth-child(2){ animation-delay:5s; }
-  .cinema .frame:nth-child(3){ animation-delay:10s; }
-  .cinema .frame:nth-child(4){ animation-delay:15s; }
-  .cinema .frame:nth-child(5){ animation-delay:20s; }
-  .cinema .frame:nth-child(6){ animation-delay:25s; }
-  .cinema .frame:nth-child(7){ animation-delay:30s; }
-  .cinema .frame:nth-child(8){ animation-delay:35s; }
-  .cinema .frame:nth-child(9){ animation-delay:40s; }
-  .cinema .frame:nth-child(10){ animation-delay:45s; }
-  .cinema .frame:nth-child(11){ animation-delay:50s; }
-  .cinema .frame:nth-child(12){ animation-delay:55s; }
-  .cinema .frame:nth-child(13){ animation-delay:60s; }
-  .cinema .frame:nth-child(14){ animation-delay:65s; }
-  .cinema .frame:nth-child(15){ animation-delay:70s; }
-  .cinema .frame:nth-child(16){ animation-delay:75s; }
+  .cinema .frame:nth-child(2){ animation-delay:8s; }
+  .cinema .frame:nth-child(3){ animation-delay:16s; }
+  .cinema .frame:nth-child(4){ animation-delay:24s; }
+  .cinema .frame:nth-child(5){ animation-delay:32s; }
+  .cinema .frame:nth-child(6){ animation-delay:40s; }
+  .cinema .frame:nth-child(7){ animation-delay:48s; }
+  .cinema .frame:nth-child(8){ animation-delay:56s; }
+  .cinema .frame:nth-child(9){ animation-delay:64s; }
+  .cinema .frame:nth-child(10){ animation-delay:72s; }
+  .cinema .frame:nth-child(11){ animation-delay:80s; }
+  .cinema .frame:nth-child(12){ animation-delay:88s; }
+  .cinema .frame:nth-child(13){ animation-delay:96s; }
+  .cinema .frame:nth-child(14){ animation-delay:104s; }
+  .cinema .frame:nth-child(15){ animation-delay:112s; }
+  .cinema .frame:nth-child(16){ animation-delay:120s; }
   @keyframes cinemaFade{
-    0%    { opacity:0; transform:scale(1.04); }
-    1.6%  { opacity:1; }
-    6.25% { opacity:1; transform:scale(1.09); }
-    7.9%  { opacity:0; }
-    100%  { opacity:0; }
+    0%     { opacity:0; transform:scale(1.03) translate(0,0); }
+    1.17%  { opacity:1; }
+    7.42%  { opacity:1; transform:scale(1.13) translate(-2%,-1%); }
+    8.59%  { opacity:0; }
+    100%   { opacity:0; }
   }
   .cinema::after{ content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(26,14,31,0.25) 0%, transparent 22%, transparent 72%, rgba(26,14,31,0.7) 100%); pointer-events:none; z-index:1; }
   .cinema .caption{ position:absolute; left:0; right:0; bottom:min(6vw,54px); text-align:center; z-index:2; }
@@ -211,8 +211,9 @@
   .menus{ background:linear-gradient(160deg, var(--plum-deep) 0%, var(--plum) 100%); color:var(--white); text-align:center; }
   .menus .eyebrow{ color:var(--lavender); }
   .menus .section-head .rule{ background:rgba(201,179,214,0.20); }
-  .menu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:min(7vw,72px); max-width:1180px; margin:0 auto; align-items:start; }
-  @media (max-width:900px){ .menu-grid{ grid-template-columns:1fr; gap:80px; } }
+  .menu-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:min(5vw,56px); max-width:1560px; margin:0 auto; align-items:start; }
+  @media (max-width:1300px){ .menu-grid{ grid-template-columns:1fr 1fr; max-width:1180px; gap:min(7vw,72px); } }
+  @media (max-width:900px){ .menu-grid{ grid-template-columns:1fr; gap:80px; max-width:640px; } }
   .menu-card{ max-width:520px; margin:0 auto; }
   .menu-title{ font-family:'Fraunces', serif; font-weight:300; font-size:clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom:6px; color:var(--white); }
   .menu-date{ font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--lavender); margin-bottom:min(5vw,48px); }
@@ -329,15 +330,6 @@
   </div>
 </section>
 
-<section class="triptych">
-  <div class="smoke" aria-hidden="true"><div class="plume p1"></div><div class="plume p2"></div><div class="plume p3"></div><div class="plume p4"></div></div>
-  <div class="triptych-grid">
-    <figure class="reveal"><img src="assets/dish2.jpg" alt="Course service at a recent Creative Mastery dinner"></figure>
-    <figure class="reveal"><img src="assets/dish3.jpg" alt="A plated course from a Creative Mastery dinner"></figure>
-    <figure class="reveal"><img src="assets/dish1.jpg" alt="A dessert course from a Creative Mastery dinner"></figure>
-  </div>
-</section>
-
 <section class="invitation" id="lavender-table">
   <div class="smoke" aria-hidden="true"><div class="plume p1"></div><div class="plume p2"></div><div class="plume p3"></div><div class="plume p4"></div></div>
   <div class="invitation-grid">
@@ -394,6 +386,15 @@
     <div class="course"><div class="course-name">Third Course</div><div class="course-items">Fresh Spinach Tagliatelle · Lemon Pesto · Spinach Velvet Sauce · Ciliegine</div><div class="course-wine">2017 Alexis Soyer First Barrel Cabernet</div></div>
     <div class="course"><div class="course-name">Fourth Course</div><div class="course-items">Chicken Wellington · Smashed Gold Potatoes · Charred Broccolini · Cranberry Chutney</div><div class="course-wine">2022 Vigneti Reale "Gloria" Primitivo di Manduria Reserve</div></div>
     <div class="course"><div class="course-name">Fifth Course</div><div class="course-items">Chocolate Grand Marnier Soufflé · Crème Anglaise</div></div>
+  </div>
+  <div class="menu-card reveal">
+    <div class="menu-title">Chianti, Bordeaux &amp; Puglia</div>
+    <div class="menu-date">6.25.25</div>
+    <div class="course"><div class="course-name">First Course</div><div class="course-items">Charred Asparagus, Pistachio Aillade<br>Whipped Ricotta · Chili Oil</div><div class="course-wine">2022 Credo di Betti Reserve White, Montalbano</div></div>
+    <div class="course"><div class="course-name">Second Course</div><div class="course-items">Fig Galette, Burrata, Prosciutto<br>Hot Honey</div><div class="course-wine">2021 Betti Special Selection Chianti</div></div>
+    <div class="course"><div class="course-name">Third Course</div><div class="course-items">Zucchini Butter Risotto, Seared Scallop<br>Parmesan · Basil</div><div class="course-wine">2018 Château Tayet Cuvée Prestige, Bordeaux Supérieur</div></div>
+    <div class="course"><div class="course-name">Fourth Course</div><div class="course-items">Roasted Chicken, Cauliflower<br>Aleppo Pepper · Hazelnuts</div><div class="course-wine">2022 Vigneti Reale "Gloria" Primitivo di Manduria Reserve</div></div>
+    <div class="course"><div class="course-name">Fifth Course</div><div class="course-items">Poached Peach, Thyme<br>Mascarpone Ice Cream</div></div>
   </div>
   </div>
 </section>
