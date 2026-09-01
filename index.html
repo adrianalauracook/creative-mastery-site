@@ -217,7 +217,7 @@
 
   /* single-column centered spotlight, used for events without a photo yet */
   .harvest-inner{ max-width:640px; margin:0 auto; text-align:center; }
-  .harvest-inner p{ margin-left:auto; margin-right:auto; }
+  .harvest-inner p{ margin-left:auto; margin-right:auto; max-width:52ch; text-wrap:balance; }
   .harvest .details{ justify-content:center; }
   .harvest .venue{ font-size:14px; letter-spacing:0.03em; color:rgba(247,245,240,0.55); margin-top:-16px; margin-bottom:40px; }
 
@@ -348,7 +348,7 @@
   <div class="smoke" aria-hidden="true"><div class="plume p1"></div><div class="plume p2"></div><div class="plume p3"></div><div class="plume p4"></div></div>
   <div class="harvest-inner reveal">
     <div class="eyebrow">Next Event</div>
-    <h2 class="typewriter" data-text="The Harvest Table">The Harvest Table</h2>
+    <h2 class="typewriter" data-text="The Harvest Table" data-speed="110">The Harvest Table</h2>
     <p>Celebrating the art of gracious hospitality and intimate gatherings, with a curated five-course seasonal menu and wine pairings.</p>
     <dl class="details">
       <div class="detail"><dt>Date</dt><dd>September 23</dd></div>
@@ -549,7 +549,7 @@
         caret.style.height = '1em';
         el.appendChild(caret);
         let i = 0;
-        const speed = 55;
+        const speed = parseInt(el.dataset.speed, 10) || 55;
         const tick = () => {
           if(i < full.length){
             caret.insertAdjacentText('beforebegin', full.charAt(i));
