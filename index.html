@@ -132,13 +132,21 @@
   /* living mosaic — a grid of photos that quietly cross-fade, independently, on a slow rolling wave */
   .mosaic{ position:relative; width:100%; height:80vh; min-height:460px; overflow:hidden; background:var(--plum-deep); display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(2,1fr); gap:2px; }
   .mosaic-tile{ position:relative; overflow:hidden; }
-  .mosaic-tile .frame{ position:absolute; inset:0; background-size:cover; background-position:center; animation:mosaicFade 32s ease-in-out infinite; will-change:opacity; }
-  @keyframes mosaicFade{
+  .mosaic-tile .frame{ position:absolute; inset:0; background-size:cover; background-position:center; animation:mosaicFade4 64s ease-in-out infinite; will-change:opacity; }
+  .mosaic-tile.n3 .frame{ animation-name:mosaicFade3; }
+  @keyframes mosaicFade4{
     0%   { opacity:1; }
-    42%  { opacity:1; }
-    50%  { opacity:0; }
-    92%  { opacity:0; }
+    20%  { opacity:1; }
+    25%  { opacity:0; }
+    95%  { opacity:0; }
     100% { opacity:1; }
+  }
+  @keyframes mosaicFade3{
+    0%      { opacity:1; }
+    26.67%  { opacity:1; }
+    33.33%  { opacity:0; }
+    93.33%  { opacity:0; }
+    100%    { opacity:1; }
   }
   .mosaic::after{ content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(26,14,31,0.28) 0%, transparent 20%, transparent 74%, rgba(26,14,31,0.58) 100%); pointer-events:none; z-index:1; }
   @media (max-width:860px){ .mosaic{ grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(4,1fr); height:130vh; min-height:640px; } }
@@ -215,11 +223,22 @@
   .cta:hover{ background:var(--white); color:var(--ink); border-color:var(--white); }
   @media (max-width:860px){ .invitation-grid{ grid-template-columns:1fr; } .invitation-photo{ order:-1; aspect-ratio:16/10; } }
 
-  /* single-column centered spotlight, used for events without a photo yet */
-  .harvest-inner{ max-width:640px; margin:0 auto; text-align:center; }
-  .harvest-inner p{ margin-left:auto; margin-right:auto; max-width:52ch; text-wrap:balance; }
-  .harvest .details{ justify-content:center; }
+  .harvest-inner p{ text-wrap:balance; }
   .harvest .venue{ font-size:14px; letter-spacing:0.03em; color:rgba(247,245,240,0.55); margin-top:-16px; margin-bottom:40px; }
+  .invitation-card{
+    background:var(--white);
+    padding:min(4vw,30px);
+    border-radius:3px;
+    box-shadow:0 40px 70px -25px rgba(0,0,0,0.55), 0 1px 0 rgba(247,245,240,0.06);
+    transform:rotate(-1.4deg);
+    transition:transform 0.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .invitation-card:hover{ transform:rotate(0deg); }
+  .invitation-card img{ width:100%; height:auto; display:block; }
+  .invitation-card.reveal{ opacity:0; transform:rotate(-1.4deg) scale(0.96); transition:opacity 1.3s ease, transform 1.6s cubic-bezier(.2,.7,.2,1); }
+  .invitation-card.reveal.in{ opacity:1; transform:rotate(-1.4deg) scale(1); }
+  .invitation-card.reveal.in:hover{ transform:rotate(0deg) scale(1); }
+  @media (max-width:860px){ .invitation-card{ order:-1; max-width:420px; margin:0 auto; } }
 
   .menus{ background:linear-gradient(160deg, var(--plum-deep) 0%, var(--plum) 100%); color:var(--white); text-align:center; }
   .menus .eyebrow{ color:var(--lavender); }
@@ -346,17 +365,22 @@
 
 <section class="invitation harvest" id="harvest-table">
   <div class="smoke" aria-hidden="true"><div class="plume p1"></div><div class="plume p2"></div><div class="plume p3"></div><div class="plume p4"></div></div>
-  <div class="harvest-inner reveal">
-    <div class="eyebrow">Next Event</div>
-    <h2 class="typewriter" data-text="The Harvest Table" data-speed="110">The Harvest Table</h2>
-    <p>Celebrating the art of gracious hospitality and intimate gatherings, with a curated five-course seasonal menu and wine pairings.</p>
-    <dl class="details">
-      <div class="detail"><dt>Date</dt><dd>October 7</dd></div>
-      <div class="detail"><dt>Time</dt><dd>Wednesday, six o'clock</dd></div>
-      <div class="detail"><dt>Reservation</dt><dd>$149</dd></div>
-    </dl>
-    <div class="venue">Beach House · 1170 Michigan Avenue, Wilmette</div>
-    <a class="cta" href="#reach">Inquire About This Evening</a>
+  <div class="invitation-grid">
+    <div class="harvest-inner reveal">
+      <div class="eyebrow">Next Event</div>
+      <h2 class="typewriter" data-text="The Harvest Table" data-speed="110">The Harvest Table</h2>
+      <p>Celebrating the art of gracious hospitality and intimate gatherings, with a curated five-course seasonal menu and wine pairings.</p>
+      <dl class="details">
+        <div class="detail"><dt>Date</dt><dd>October 7</dd></div>
+        <div class="detail"><dt>Time</dt><dd>Wednesday, six o'clock</dd></div>
+        <div class="detail"><dt>Reservation</dt><dd>$149</dd></div>
+      </dl>
+      <div class="venue">Beach House · 1170 Michigan Avenue, Wilmette</div>
+      <a class="cta" href="#reach">Inquire About This Evening</a>
+    </div>
+    <div class="invitation-card reveal">
+      <img src="assets/harvest-invitation.jpg" alt="Invitation for The Harvest Table, October 7, 2026, Wednesday at 6pm, Beach House at 1170 Michigan Avenue, Wilmette, $149 per person, 312.497.2044 to register">
+    </div>
   </div>
 </section>
 
@@ -382,35 +406,49 @@
 <section class="mosaic" aria-label="Scenes from our table">
   <div class="mosaic-tile">
     <div class="frame" style="background-image:url('assets/g_purplepasta.jpg'); animation-delay:0s;"></div>
-    <div class="frame" style="background-image:url('assets/g_beefwine.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/table1.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/g_crostini.jpg'); animation-delay:32s;"></div>
+    <div class="frame" style="background-image:url('assets/acorn.jpg'); animation-delay:48s;"></div>
   </div>
   <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_crostini.jpg'); animation-delay:4s;"></div>
-    <div class="frame" style="background-image:url('assets/g_tiramisu.jpg'); animation-delay:20s;"></div>
+    <div class="frame" style="background-image:url('assets/g_beefwine.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_tiramisu.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/freshpasta.jpg'); animation-delay:32s;"></div>
+    <div class="frame" style="background-image:url('assets/dish2.jpg'); animation-delay:48s;"></div>
+  </div>
+  <div class="mosaic-tile n3">
+    <div class="frame" style="background-image:url('assets/g_ravioli.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_chickenplate.jpg'); animation-delay:21.3s;"></div>
+    <div class="frame" style="background-image:url('assets/eggplant.jpg'); animation-delay:42.7s;"></div>
   </div>
   <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_ravioli.jpg'); animation-delay:8s;"></div>
-    <div class="frame" style="background-image:url('assets/g_chicken.jpg'); animation-delay:24s;"></div>
+    <div class="frame" style="background-image:url('assets/g_lavenderpasta.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_nectarine.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/dish3.jpg'); animation-delay:32s;"></div>
+    <div class="frame" style="background-image:url('assets/shrimp.jpg'); animation-delay:48s;"></div>
   </div>
   <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_lavenderpasta.jpg'); animation-delay:12s;"></div>
-    <div class="frame" style="background-image:url('assets/g_nectarine.jpg'); animation-delay:28s;"></div>
+    <div class="frame" style="background-image:url('assets/g_pinkpasta.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_lavenderclose.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/g_spread1.jpg'); animation-delay:32s;"></div>
+    <div class="frame" style="background-image:url('assets/beef.jpg'); animation-delay:48s;"></div>
   </div>
   <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_pinkpasta.jpg'); animation-delay:16s;"></div>
-    <div class="frame" style="background-image:url('assets/g_lavenderclose.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_avocado.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_flatbread.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/dish4.jpg'); animation-delay:32s;"></div>
+    <div class="frame" style="background-image:url('assets/pasta.jpg'); animation-delay:48s;"></div>
+  </div>
+  <div class="mosaic-tile n3">
+    <div class="frame" style="background-image:url('assets/g_shrimpbisque.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_caprese.jpg'); animation-delay:21.3s;"></div>
+    <div class="frame" style="background-image:url('assets/g_soup.jpg'); animation-delay:42.7s;"></div>
   </div>
   <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_plating.jpg'); animation-delay:20s;"></div>
-    <div class="frame" style="background-image:url('assets/g_avocado.jpg'); animation-delay:4s;"></div>
-  </div>
-  <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_flatbread.jpg'); animation-delay:24s;"></div>
-    <div class="frame" style="background-image:url('assets/g_charcuterie.jpg'); animation-delay:8s;"></div>
-  </div>
-  <div class="mosaic-tile">
-    <div class="frame" style="background-image:url('assets/g_shrimpbisque.jpg'); animation-delay:28s;"></div>
-    <div class="frame" style="background-image:url('assets/g_caprese.jpg'); animation-delay:12s;"></div>
+    <div class="frame" style="background-image:url('assets/g_chicken.jpg'); animation-delay:0s;"></div>
+    <div class="frame" style="background-image:url('assets/g_spread2.jpg'); animation-delay:16s;"></div>
+    <div class="frame" style="background-image:url('assets/table2.jpg'); animation-delay:32s;"></div>
+    <div class="frame" style="background-image:url('assets/dish1.jpg'); animation-delay:48s;"></div>
   </div>
 </section>
 
